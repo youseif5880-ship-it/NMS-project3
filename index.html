@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>Orange Knowledge Base — Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- PAGE 0 (Login Page) -->
+<main id="loginPage" class="page">
+  <div class="wrap">
+    <section class="hero">
+      <div class="kb-title">Orange Knowledge Base — Login</div>
+      <div class="logo-square">
+        <img src="images/Orange logo.png" alt="Orange Logo">
+      </div>
+
+      <form id="loginForm" class="kb-form" onsubmit="return false;">
+        <div class="row one">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" id="loginUsername" required />
+          </div>
+        </div>
+        <div class="row one">
+          <div class="field">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required />
+          </div>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn-submit">Login</button>
+        </div>
+
+        <div id="loginError" style="color: red; font-size: 0.9rem; margin-top: 10px; display: none;"></div>
+
+      </form>
+    </section>
+  </div>
+</main>
+
+  <!-- PAGE 1 (List) -->
+  <main id="page1" class="page">
+    <header class="topbar">
+      <nav class="nav">
+        <ul>
+      <li><a href="#" class="home-link">Home</a></li>
+      <li><a href="#" class="apps-link">Apps</a></li>
+      <li><a href="#" class="vendors-link">Vendors</a></li>
+      <li><a href="#" class="databases-link">Databases</a></li>
+      <li><a href="#" class="backups-link">Backups</a></li>
+      <li><a href="#" class="servers-link">Servers</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="wrap">
+      <section class="hero">
+        <div class="kb-title">Orange Knowledge Base</div>
+
+        <!-- inline simple "logo" square like the screenshot -->
+        <div class="logo-square" aria-hidden="true">
+          <img src="images/Orange logo.png" alt="Orange Logo">
+        </div>
+
+        <div class="controls">
+          <button id="addBtn" class="btn-add" title="Add new article">
+            <span class="plus">+</span> Add
+          </button>
+
+          <div class="search-wrap">
+            <input id="searchPage1" placeholder="Search" class="search" />
+          </div>
+        </div>
+        <!-- Filter Dropdown -->
+<div class="filter-container">
+  <button id="filterToggle" class="filter-btn">Filter By ▾</button>
+  <div id="filterPanel" class="filter-panel">
+    <label>App Name:
+      <select id="filterName">
+        <option value="">All</option>
+        <option value="Apple">Apple</option>
+        <option value="Nokia">Nokia</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Cisco">Cisco</option>
+        <option value="HP">HP</option>
+        <option value="Asus">Asus</option>
+      </select>
+    </label>
+
+    <label>Author:
+      <input type="text" id="author" placeholder="Enter author name" />
+    </label>
+
+    <label>From:
+      <input type="date" id="filterStartDate">
+    </label>
+
+    <label>To:
+      <input type="date" id="filterEndDate">
+    </label>
+
+    <button id="resetFilters" class="reset-btn">Reset Filters</button>
+  </div>
+</div>
+
+      </section>
+
+      
+      <!-- cards grid -->
+    <div class="cards-grid" id="cardsGrid">
+    </div>
+      <div class="load-more-wrap">
+        <button class="btn-load">Load more</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- PAGE 2 (Add / Form) -->
+  <main id="page2" class="page hidden">
+    <header class="topbar">
+      <nav class="nav">
+        <ul>
+        <li><a href="#" class="home-link">Home</a></li>
+      <li><a href="#" class="apps-link">Apps</a></li>
+      <li><a href="#" class="vendors-link">Vendors</a></li>
+      <li><a href="#" class="databases-link">Databases</a></li>
+      <li><a href="#" class="backups-link">Backups</a></li>
+      <li><a href="#" class="servers-link">Servers</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    
+
+    <section class="hero-bg">
+  <div class="page2-content">
+    
+    <div class="wrap form-wrap">
+      <button id="backBtn" class="btn-back">← Back</button>
+      
+
+</div>
+  </div>
+</section>
+      <!-- form -->
+      <form id="addForm" class="kb-form">
+    <div class="row two">
+        <div class="field">
+            <label>Title</label>
+            <input id="addtitle" type="text" placeholder="Title" />
+        </div>
+
+        <div class="field">
+            <label>Author</label>
+            <input type="text" id="author" placeholder="Enter author name" />
+        </div>
+
+        <div class="field">
+            <label>Vendor</label>
+            <select id="vendor" required>
+    <option value="">Choose Vendor</option>
+</select>
+
+    </select>
+        </div>
+    </div>
+
+    <div class="row three">
+        <div class="field">
+            <label>Date</label>
+            <input type="text" id="date" readonly />
+        </div>
+        <div class="field">
+            <label>Version</label>
+            <input type="text" id="version" placeholder="version" />
+        </div>
+        <div class="field">
+            <label>App</label>
+            <select id="app" required>
+    <option value="">Choose App</option>
+    <option value="Other">Other</option>
+</select>
+        </div>
+    </div>
+
+    <div class="row one">
+        <div class="field">
+            <label>Description</label>
+            <input id="description" type="text" placeholder="Short description" />
+        </div>
+    </div>
+
+    <div class="row one">
+        <div class="field">
+            <label>Solutions</label>
+            <textarea id="solutions" placeholder="Write your Solution here..."></textarea>
+            <!-- small mock toolbar (visual only) -->
+            <div class="editor-toolbar">
+                <span>B</span><span>I</span><span>U</span><span>•</span><span>List</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row two bottom-actions">
+        <div></div>
+        <div class="field file-field">
+            <input id="fileUpload" type="file" hidden />
+            <label for="fileUpload" class="upload-btn">Upload File ⤓</label>
+        </div>
+    </div>
+
+    <div class="submit-row">
+        <button type="submit" class="btn-submit">Submit</button>
+    </div>
+</form>
+    </div>
+
+    
+  </main>
+
+
+
+
+  <!-- PAGE 3 (Apps List View) -->
+<main id="page3" class="page hidden">
+  <header class="topbar">
+    <nav class="nav">
+      <ul>
+      <li><a href="#" class="home-link">Home</a></li>
+      <li><a href="#" class="apps-link">Apps</a></li>
+      <li><a href="#" class="vendors-link">Vendors</a></li>
+      <li><a href="#" class="databases-link">Databases</a></li>
+      <li><a href="#" class="backups-link">Backups</a></li>
+      <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <section class="hero hero-laptop">
+      <div class="kb-title">Orange Knowledge Base</div>
+      <div class="logo-square">
+        <img src="images/Orange logo.png" alt="Orange Logo">
+      </div>
+      <div class="controls">
+        <button id="addBtnApps" class="btn-add"><span class="plus">+</span> Add</button>
+        <div class="search-wrap">
+          <input id="searchPage3" placeholder="Search" class="search" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Stacked card list -->
+    <div class="cards-list">
+    </div>
+
+    <div class="load-more-wrap">
+      <button class="btn-load">Load more</button>
+    </div>
+  </div>
+</main>
+
+  
+  <div id="cardModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <img class="article-image" />
+    <h2 class="modal-title"></h2>
+    <div class="modal-meta"></div>
+    <div class="modal-files"></div>
+      <div class="modal-actions">
+  <button class="btn-orange" id="editCardBtn">Edit ✏</button>
+  <div class="download-section">
+    <span class="download-note">Downloads only the attached files</span>
+    <button class="btn-orange" id="downloadCardBtn">Download ⬇</button>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <!-- Page 3 App Details Modal -->
+<div id="appDetailsModal" class="modal">
+  <div class="modal-content app-details-modal">
+    <span class="close-btn app-details-close">&times;</span>
+
+    <!-- Top image -->
+    <img class="app-image" src="" alt="">
+
+    <!-- App Info -->
+    <div class="app-info-container">
+      <div class="app-header">
+        <div>
+          <span class="version-label">Version number</span>
+          <h2 class="app-name">App Name</h2>
+          <div class="app-url-wrap">
+            URL Address : <a class="app-url" href="#" target="_blank"></a>
+          </div>
+        </div>
+        <div class="app-port">Port : <span></span></div>
+        <div class="app-last-update">
+          Last update : <span></span> <button class="btn-green">View issues</button>
+        </div>
+      </div>
+
+      <!-- Credentials -->
+      <div class="section">
+        <h3 class="section-title orange">Credentials</h3>
+        <p>Username : <span class="app-username"></span></p>
+        <p>Password : <span class="app-password"></span></p>
+      </div>
+
+      <!-- Concerned teams and Vendor -->
+      <div class="two-col">
+        <div>
+          <h3 class="section-title orange">Concerned teams</h3>
+          <div class="app-teams"></div>
+        </div>
+        <div>
+          <h3 class="section-title orange">Vendor :</h3>
+          <p class="app-vendor-name"></p>
+          <p class="app-vendor-phone"></p>
+          <p class="app-vendor-mail"></p>
+          <button class="btn-green">View Vendor</button>
+        </div>
+      </div>
+
+      <!-- Database Info -->
+      <div class="section">
+        <h3 class="section-title orange">Database information</h3>
+        <table class="db-table">
+          <thead>
+            <tr>
+              <th>Database Name</th>
+              <th>IP Address</th>
+              <th>SSize</th>
+              <th>Type</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="db-name"></td>
+              <td class="db-ip"></td>
+              <td class="db-size"></td>
+              <td class="db-type"></td>
+              <td><span class="db-status status-badge"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Edit Button -->
+      <div class="edit-btn-wrap">
+        <button class="btn-orange">Edit ✏️</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page 4 Vendor Details Modal -->
+<div id="vendorDetailsModal" class="modal">
+  <div class="modal-content app-details-modal">
+    <span class="close-btn vendor-details-close">&times;</span>
+
+    <!-- Vendor Info -->
+    <div class="app-info-container">
+      <h2 class="vendor-name">Vendor Name</h2>
+
+      <!-- Portal Info -->
+      <div class="section">
+        <h3 class="section-title orange">Portal Information</h3>
+        <p>System: <span class="vendor-portal-system"></span></p>
+        <p>Username: <span class="vendor-portal-username"></span></p>
+        <p>Password: <span class="vendor-portal-password"></span></p>
+      </div>
+
+      <!-- Main Contact -->
+      <div class="section">
+        <h3 class="section-title orange">Main Contact</h3>
+        <p>Name: <span class="vendor-main-name"></span></p>
+        <p>Email: <span class="vendor-main-email"></span></p>
+        <p>Mobile: <span class="vendor-main-mobile"></span></p>
+      </div>
+
+      <!-- Escalation Level 1 -->
+      <div class="section">
+        <h3 class="section-title orange">Escalation Level 1</h3>
+        <p>Name: <span class="vendor-escalation1-name"></span></p>
+        <p>Email: <span class="vendor-escalation1-email"></span></p>
+        <p>Mobile: <span class="vendor-escalation1-mobile"></span></p>
+      </div>
+
+      <!-- Escalation Level 2 -->
+      <div class="section">
+        <h3 class="section-title orange">Escalation Level 2</h3>
+        <p>Name: <span class="vendor-escalation2-name"></span></p>
+        <p>Email: <span class="vendor-escalation2-email"></span></p>
+        <p>Mobile: <span class="vendor-escalation2-mobile"></span></p>
+      </div>
+
+      <!-- Edit Button -->
+      <div class="edit-btn-wrap">
+        <button class="btn-orange" onclick="openVendorEditPage(vendor)">Edit</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 (Vendors Grid) -->
+<main id="page4" class="page hidden">
+  <header class="topbar">
+    <nav class="nav">
+      <ul>
+      <li><a href="#" class="home-link">Home</a></li>
+      <li><a href="#" class="apps-link">Apps</a></li>
+      <li><a href="#" class="vendors-link">Vendors</a></li>
+      <li><a href="#" class="databases-link">Databases</a></li>
+      <li><a href="#" class="backups-link">Backups</a></li>
+      <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="kb-title">Vendors</div>
+      <div class="logo-square">
+        <img src="images/Orange logo.png" alt="Orange Logo">
+      </div>
+
+      <div class="controls">
+        <button id="addBtnVendor" class="btn-add" title="Add new vendor">
+          <span class="plus">+</span> Add
+        </button>
+        <div class="search-wrap">
+          <input id="searchPage4" placeholder="Search vendors" class="search" />
+        </div>
+      </div>
+    </section>
+
+    <!-- vendors grid -->
+    <div class="cards-grid" id="vendorsGrid"></div>
+
+    <div class="load-more-wrap">
+      <button class="btn-load">Load more</button>
+    </div>
+  </div>
+</main>
+
+
+
+<div id="page5" class="page hidden">
+  <h2>Edit Knowledge Base</h2>
+  <form id="editForm">
+    <input type="hidden" id="editId" />
+
+    <label>Title</label>
+    <input type="text" id="editTitle" />
+
+    <label>Application</label>
+    <select id="editAppName"></select>
+
+    <label>Version</label>
+    <select id="editAppVersion"></select>
+
+    <label>Author</label>
+    <input type="text" id="editAuthor" />
+
+    <label>Date</label>
+    <input type="text" id="editDate" readonly />
+
+    <label>Description</label>
+    <textarea id="editDescription"></textarea>
+
+    <label>Solution Steps</label>
+    <textarea id="editSolutions"></textarea>
+
+    <label>Vendor</label>
+    <select id="editVendor"></select>
+
+    <button type="submit">Save Changes</button>
+    <button type="button" id="cancelEdit">Cancel</button>
+
+  </form>
+</div>
+
+<!-- PAGE 6 (Databases) -->
+<main id="page6" class="page hidden">
+  <header class="topbar">
+    <nav class="nav">
+      <ul>
+        <li><a href="#" class="home-link">Home</a></li>
+        <li><a href="#" class="apps-link">Apps</a></li>
+        <li><a href="#" class="vendors-link">Vendors</a></li>
+        <li><a href="#" class="databases-link">Databases</a></li>
+        <li><a href="#" class="backups-link">Backups</a></li>
+        <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="wrap">
+    <section class="hero">
+      <div class="kb-title">Databases</div>
+      <div class="logo-square"><img src="images/Orange logo.png" alt="Orange Logo"></div>
+      <div class="controls">
+        <button id="addBtnPage6" class="btn-add"><span class="plus">+</span> Add</button>
+        <div class="search-wrap"><input id="searchPage6" placeholder="Search databases" class="search" /></div>
+      </div>
+    </section>
+    <div class="cards-grid" id="databasesGrid"></div>
+    <div class="load-more-wrap"><button class="btn-load">Load more</button></div>
+  </div>
+</main>
+
+<!-- PAGE 7 (Backups) -->
+<main id="page7" class="page hidden">
+  <header class="topbar">
+    <nav class="nav">
+      <ul>
+        <li><a href="#" class="home-link">Home</a></li>
+        <li><a href="#" class="apps-link">Apps</a></li>
+        <li><a href="#" class="vendors-link">Vendors</a></li>
+        <li><a href="#" class="databases-link">Databases</a></li>
+        <li><a href="#" class="backups-link">Backups</a></li>
+        <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="wrap">
+    <section class="hero">
+      <div class="kb-title">Backups</div>
+      <div class="logo-square"><img src="images/Orange logo.png"></div>
+      <div class="controls">
+        <button id="addBtnPage7" class="btn-add"><span class="plus">+</span> Add</button>
+        <div class="search-wrap"><input id="searchPage7" placeholder="Search backups" class="search" /></div>
+      </div>
+    </section>
+    <div class="cards-grid" id="backupsGrid"></div>
+    <div class="load-more-wrap"><button class="btn-load">Load more</button></div>
+  </div>
+</main>
+
+<!-- PAGE 8 (Servers) -->
+<main id="page8" class="page hidden">
+<header class="topbar">
+    <nav class="nav">
+      <ul>
+        <li><a href="#" class="home-link">Home</a></li>
+        <li><a href="#" class="apps-link">Apps</a></li>
+        <li><a href="#" class="vendors-link">Vendors</a></li>
+        <li><a href="#" class="databases-link">Databases</a></li>
+        <li><a href="#" class="backups-link">Backups</a></li>
+        <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="wrap">
+    <section class="hero">
+      <div class="kb-title">Servers</div>
+      <div class="logo-square"><img src="images/Orange logo.png"></div>
+      <div class="controls">
+        <button id="addBtnPage8" class="btn-add"><span class="plus">+</span> Add</button>
+        <div class="search-wrap"><input id="searchPage8" placeholder="Search servers" class="search" /></div>
+      </div>
+    </section>
+    <div class="cards-grid" id="serversGrid"></div>
+    <div class="load-more-wrap"><button class="btn-load">Load more</button></div>
+  </div>
+</main>
+
+<main id="pageAddApps" class="page hidden">
+  <header class="topbar">
+    <nav class="nav">
+      <ul>
+        <li><a href="#" class="home-link">Home</a></li>
+        <li><a href="#" class="apps-link">Apps</a></li>
+        <li><a href="#" class="vendors-link">Vendors</a></li>
+        <li><a href="#" class="databases-link">Databases</a></li>
+        <li><a href="#" class="backups-link">Backups</a></li>
+        <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+<section class="hero-bg">
+  <div class="page2-content">
+    
+    <div class="wrap form-wrap">
+      <button id="appbackBtn" class="btn-back">← Back</button>
+      
+
+</div>
+  </div>
+</section>
+  
+  <!-- Applications Form -->
+  <form id="addAppsForm" class="apps-form">
+    <div class="row two">
+      <div class="field">
+        <label>Application Name</label>
+        <input id="appName" type="text" placeholder="Enter application name" required />
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <input id="appDescription" type="text" placeholder="Enter description" />
+      </div>
+    </div>
+
+    <div class="row two">
+      <div class="field">
+        <label>Vendor ID</label>
+        <input id="appVendor" type="number" placeholder="Enter Vendor ID" />
+      </div>
+      <div class="field">
+        <label>Added By</label>
+        <input id="addedBy" type="text" placeholder="Author / User" />
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="btn-submit">Submit</button>
+    </div>
+  </form>
+</main>
+
+
+<main id="pageAddVendors" class="page hidden">
+ <div class="wrap form-wrap">
+  <header class="topbar">
+    <nav class="nav">
+      <ul>
+        <li><a href="#" class="home-link">Home</a></li>
+        <li><a href="#" class="apps-link">Apps</a></li>
+        <li><a href="#" class="vendors-link">Vendors</a></li>
+        <li><a href="#" class="databases-link">Databases</a></li>
+        <li><a href="#" class="backups-link">Backups</a></li>
+        <li><a href="#" class="servers-link">Servers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+      <section class="hero-bg">
+  <div class="page2-content">
+    
+    <div class="wrap form-wrap">
+      <button id="vendorbackBtn" class="btn-back">← Back</button>
+      
+       <div class="wrap form-wrap"></div>
+</div>
+  </div>
+</section>
+
+  
+  <!-- Vendors Form -->
+  <form id="addVendorForm" class="vendors-form">
+    <div class="row one">
+      <div class="field">
+        <label>Vendor Name</label>
+        <input id="vendorName" type="text" placeholder="Vendor's Name" required />
+      </div>
+    </div>
+
+    <h3>Portal Information</h3>
+    <div class="row three">
+      <div class="field"><label>System</label><input id="vendorSystem" type="text" /></div>
+    </div>
+
+    <h3>Main Contact</h3>
+    <div class="row three">
+      <div class="field"><label>Name</label><input id="mainContactName" type="text" /></div>
+      <div class="field"><label>Email</label><input id="mainContactEmail" type="email" /></div>
+      <div class="field"><label>Mobile</label><input id="mainContactMobile" type="text" /></div>
+    </div>
+
+    <h3>Escalation Level 1</h3>
+    <div class="row three">
+      <div class="field"><label>Name</label><input id="esc1Name" type="text" /></div>
+      <div class="field"><label>Email</label><input id="esc1Email" type="email" /></div>
+      <div class="field"><label>Mobile</label><input id="esc1Mobile" type="text" /></div>
+    </div>
+
+    <h3>Escalation Level 2</h3>
+    <div class="row three">
+      <div class="field"><label>Name</label><input id="esc2Name" type="text" /></div>
+      <div class="field"><label>Email</label><input id="esc2Email" type="email" /></div>
+      <div class="field"><label>Mobile</label><input id="esc2Mobile" type="text" /></div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="btn-submit">Submit</button>
+    </div>
+  </form>
+</main>
+
+<div id="vendorsContainer"></div>
+
+<div id="pageVendorEdit" style="display:none">
+  <h2>Edit Vendor</h2>
+  <form id="vendorEditForm">
+    <!-- Portal Information -->
+    <h3>Portal Information</h3>
+    <label for="editSystem">System:</label>
+    <input type="text" id="editSystem" />
+
+    <!-- Main Contact -->
+    <h3>Main Contact</h3>
+    <label for="editMainName">Name:</label>
+    <input type="text" id="editMainName" />
+
+    <label for="editMainEmail">Email:</label>
+    <input type="email" id="editMainEmail" />
+
+    <label for="editMainMobile">Mobile:</label>
+    <input type="text" id="editMainMobile" />
+
+    <!-- Escalation Level 1 -->
+    <h3>Escalation Level 1</h3>
+    <label for="editEsc1Name">Name:</label>
+    <input type="text" id="editEsc1Name" />
+
+    <label for="editEsc1Email">Email:</label>
+    <input type="email" id="editEsc1Email" />
+
+    <label for="editEsc1Mobile">Mobile:</label>
+    <input type="text" id="editEsc1Mobile" />
+
+    <!-- Escalation Level 2 -->
+    <h3>Escalation Level 2</h3>
+    <label for="editEsc2Name">Name:</label>
+    <input type="text" id="editEsc2Name" />
+
+    <label for="editEsc2Email">Email:</label>
+    <input type="email" id="editEsc2Email" />
+
+    <label for="editEsc2Mobile">Mobile:</label>
+    <input type="text" id="editEsc2Mobile" />
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button type="submit">Save Changes</button>
+      <button type="button" id="cancelVendorEdit">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<!-- Database Details Modal -->
+<!-- Database Details Modal -->
+<div id="dbDetailsModal" class="modal">
+  <div class="modal-content app-details-modal">
+    <span class="close-btn db-details-close">&times;</span>
+
+    <div class="app-info-container">
+      <h2 class="db-name">Database Name</h2>
+
+      <div class="section">
+        <h3 class="section-title orange">Connection Info</h3>
+        <p>URL Address: <span class="db-url"></span></p>
+        <p>Port: <span class="db-port"></span></p>
+        <p>Type: <span class="db-type"></span></p>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title orange">Credentials</h3>
+        <p>Username: <span class="db-username"></span></p>
+        <p>Password: <span class="db-password"></span></p>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title orange">Version & Updates</h3>
+        <p>Current Version: <span class="db-currentversion"></span></p>
+        <p>Last Update: <span class="db-lastupdate"></span></p>
+        <p>Planned Update: <span class="db-plannedupdate"></span></p>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title orange">Application</h3>
+        <p>Application ID: <span class="db-applicationid"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backup Details Modal -->
+<div id="backupDetailsModal" class="modal">
+  <div class="modal-content app-details-modal">
+    <span class="close-btn backup-details-close">&times;</span>
+
+    <div class="app-info-container">
+      <h2 class="backup-name">Backup Name</h2>
+
+      <div class="section">
+        <h3 class="section-title orange">General Info</h3>
+        <p>Application ID: <span class="backup-applicationid"></span></p>
+        <p>Backup Mode: <span class="backup-mode"></span></p>
+        <p>Backup Type: <span class="backup-type"></span></p>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title orange">Schedule</h3>
+        <p>Frequency: <span class="backup-frequency"></span></p>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title orange">Storage</h3>
+        <p>Location: <span class="backup-location"></span></p>
+        <p>File Path: <span class="backup-filepath"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Server Details Modal -->
+<div id="serverDetailsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn server-details-close">&times;</span>
+    <h2 class="server-name">Server Name</h2>
+    <p>IP: <span class="server-ip"></span></p>
+    <p>OS: <span class="server-os"></span></p>
+    <p>Status: <span class="server-status status-badge"></span></p>
+    <p>Last Updated: <span class="server-lastupdate"></span></p>
+  </div>
+</div>
+
+<!-- ADD DATABASE -->
+<div id="pageAddDatabase" class="page" style="display:none;">
+  <h2>Add Database</h2>
+  <form id="addDbForm">
+    <label>Name: <input type="text" id="dbName" required></label>
+    <label>IP: <input type="text" id="dbIP"></label>
+    <label>Type: <input type="text" id="dbType"></label>
+    <button type="submit">Save</button>
+    <button type="button" id="cancelAddDb">Cancel</button>
+  </form>
+</div>
+
+
+<!-- ADD BACKUP -->
+<div id="pageAddBackup" class="page" style="display:none;">
+  <h2>Add Backup</h2>
+  <form id="addBackupForm">
+    <label>Name: <input type="text" id="backupName" required></label>
+    <label>Type: <input type="text" id="backupType"></label>
+    <button type="submit">Save</button>
+    <button type="button" id="cancelAddBackup">Cancel</button>
+  </form>
+</div>
+
+<!-- ADD SERVER -->
+<div id="pageAddServer" class="page" style="display:none;">
+  <h2>Add Server</h2>
+  <form id="addServerForm">
+    <label>Name: <input type="text" id="serverName" required></label>
+    <label>IP: <input type="text" id="serverIP"></label>
+    <label>OS: <input type="text" id="serverOS"></label>
+    <button type="submit">Save</button>
+    <button type="button" id="cancelAddServer">Cancel</button>
+  </form>
+</div>
+
+
+  <script src="script.js"></script>
+
+
+</body>
+</html>
